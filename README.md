@@ -37,4 +37,28 @@ The 1-file server requires four components.
     ```
     graphql(schema, '{ hello }', root)
         .then(response => console.log(response));
-        ```
+    ```
+
+## GraphQL with Express
+
+Our goal is to integrate GraphQL with Express by setting up a single endpoint which will be used with GraphQL.
+
+1. Import Express and graphqlHTTP
+
+    ```
+    const express = require('express');
+    const graphqlHTTP = require('express-graphql');
+    ```
+
+2. Set up GraphQL at the endpoint and listen on the port. The schema and resolver are unchanged.
+
+    ```
+    const app = express();
+    app.use('/graphql', graphqlHTTP({
+        schema: schema,
+        rootValue: root,
+        graphiql: true
+    }));
+    app.listen(4000, () => console.log('Listening on Port 4000'));
+    ```
+
