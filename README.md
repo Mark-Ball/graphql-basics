@@ -62,3 +62,24 @@ Our goal is to integrate GraphQL with Express by setting up a single endpoint wh
     app.listen(4000, () => console.log('Listening on Port 4000'));
     ```
 
+We have set ```graphiql: true``` in our setup, which allows us to use the GraphiQL GUI at ```http://localhost:4000/graphql```.
+
+## Passing arguments
+
+The simplest possible implementation of passing arguments is to have our schema accept 1 argument, and have the resolver simply return the argument passed.
+
+In our schema we will accept an argument called num, which is an Int and is non-nullable. The query will return an Int.
+```
+const schema = buildSchema(`
+    type Query {
+        number(num: Int!): Int
+    }
+`);
+```
+
+In our root variable (i.e. resolvers) we declare a resolver for number, which destructures num from the arguments passed on number, and returns that number.
+```
+const root = {
+    number: ({ num }) => num
+};
+```

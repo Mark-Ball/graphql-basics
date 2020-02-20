@@ -6,14 +6,27 @@ const graphqlHTTP = require('express-graphql');
 const schema = buildSchema(`
     type Query {
         hello: String
-        second: String
+        quoteOfTheDay: String
+        random: Float!
+        rollDice(numDice: Int!, numSides: Int): [Int]
+        number(num: Int!): Int
     }
 `);
 
 // create a resolver function at the endpoint
 const root = {
     hello: () => 'Hello world!',
-    second: () => 'Second'
+    quoteOfTheDay: () => {
+        return Math.random() < 0.5 ? 'Take it easy' : 'Salvation lies within';
+    },
+    random: () => {
+        return Math.random();
+    },
+    rollDice: ({ numDice, numSides }) => {
+        const arr = new Array(numDice).fill(1);
+        return arr.map(_ => 1 + Math.floor(Math.random() * (numSides || 6)));
+    },
+    number: ({ num }) => num
 };
 
 // set up graphql to return data when the endpoint is hit
