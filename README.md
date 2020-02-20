@@ -132,7 +132,7 @@ axios({
 
 Instead of hardcoding the query with the num: 4, we want to use a variable in our query.
 
-### In GraphiQL
+### in GraphiQL
 
 We must name our query, which we did not have to do before and pass in the names of variables which we want to include. For now, we simply want to query the number. Therefore we have named the query ```number``` and indicated in the first line that we will be using a variable named ```$num``` which is a required Int. On line 2 we query the resolver called 'number' and pass in an argument called num, with the value specified in the Query Variables.
 
@@ -148,4 +148,31 @@ In the Query Variables we now declare the variable which will be used in place o
 {
   "num": 4
 }
+```
+
+### in Axios
+
+We modify the query in the same way, by naming it and inputting the variable name and type in the first line of the query.
+
+```Javascript
+const query = (
+    `query Number ($num: Int!) {
+        number(num: $num)
+    }`
+)
+```
+
+In the axios request, we add a key to ```data``` called ```variables```, which has key-value pairs. In our case we have declared above that ```num``` will be a key, and for this example we are setting this to 5.
+
+```Javascript
+axios({
+  url: endpoint,
+  method: 'post',
+  data: {
+    query,
+    variables: { num: 5 }
+  }
+}).then((result) => {
+  console.log(result.data)
+});
 ```

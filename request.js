@@ -3,11 +3,11 @@ const endpoint = 'http://localhost:4000/graphql';
 const fetch = require('node-fetch');
 
 const num = 4;
-var dice = 3;
-var sides = 6;
-var query = (
-    `{
-        number(num: 4)
+const dice = 3;
+const sides = 6;
+const query = (
+    `query Number ($num: Int!) {
+        number(num: $num)
     }`
 )
 
