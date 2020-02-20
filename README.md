@@ -83,3 +83,47 @@ const root = {
     number: ({ num }) => num
 };
 ```
+
+This enables you to write a query which passes in an integer argument called num.
+```
+{
+    number(num: 3)
+}
+```
+
+## Sending the query with Axios
+
+So far, we have been writing our queries in the GraphiQL interface. For a real program, we will want to send our requests programmatically. One of the ways we can do this using methods already known to us is with axios.
+
+To recreate our 'number' request from above, we will create a file called ```request.js``` in the root of the project to write our request in.
+
+Import axios and we save the endpoint in a variable.
+
+```Javascript
+const axios = require('axios');
+const endpoint = 'http://localhost:4000/graphql';
+```
+
+We save our query in a variable to make the syntax easier.
+
+```Javascript
+var query = (
+    `{
+        number(num: 4)
+    }`
+)
+```
+
+Now we can make our http request using axios and print the result.
+
+```Javascript
+axios({
+  url: endpoint,
+  method: 'post',
+  data: {
+    query: query
+  }
+}).then((result) => {
+  console.log(result.data)
+});
+```
