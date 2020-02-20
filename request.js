@@ -2,6 +2,7 @@ const axios = require('axios');
 const endpoint = 'http://localhost:4000/graphql';
 const fetch = require('node-fetch');
 
+const num = 4;
 var dice = 3;
 var sides = 6;
 var query = (
@@ -10,10 +11,6 @@ var query = (
     }`
 )
 
-// `query RollDice($dice: Int!, $sides: Int) {
-//   rollDice(numDice: $dice, numSides: $sides)
-// }`;
-
 // fetch(endpoint, {
 //   method: 'POST',
 //   headers: {
@@ -21,7 +18,9 @@ var query = (
 //     'Accept': 'application/json',
 //   },
 //   body: JSON.stringify({
-//     query,
+//     query: `query RollDice($dice: Int!, $sides: Int) {
+//         rollDice(numDice: $dice, numSides: $sides)
+//     }`,
 //     variables: { dice, sides },
 //   })
 // })
@@ -32,7 +31,8 @@ axios({
   url: endpoint,
   method: 'post',
   data: {
-    query: query
+    query,
+    variables: { num: 5 }
   }
 }).then((result) => {
   console.log(result.data)
