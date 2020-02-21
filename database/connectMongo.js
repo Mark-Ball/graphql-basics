@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbConnect = (hostname) => {
+const  connectMongo = (hostname) => {
     mongoose.connect(hostname, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -11,4 +11,4 @@ const dbConnect = (hostname) => {
     return mongoose;
 };
 
-module.exports = dbConnect;
+module.exports = connectMongo;
